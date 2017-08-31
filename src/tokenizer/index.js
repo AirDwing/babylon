@@ -409,6 +409,9 @@ export default class Tokenizer extends LocationParser {
   readToken_pipe_amp(code: number): void {
     // '|&'
     const next = this.input.charCodeAt(this.state.pos + 1);
+    if (code === 124 && next === 62) {
+      return this.finishOp(tt.pipeline, 2);
+    }
     if (next === code)
       return this.finishOp(code === 124 ? tt.logicalOR : tt.logicalAND, 2);
     if (next === 61) return this.finishOp(tt.assign, 2);
@@ -633,7 +636,7 @@ export default class Tokenizer extends LocationParser {
         return this.readToken_mult_modulo(code);
 
       case 124:
-      case 38: // '|&'
+      case 38: // '|& or |>'
         return this.readToken_pipe_amp(code);
 
       case 94: // '^'

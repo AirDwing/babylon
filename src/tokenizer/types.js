@@ -148,7 +148,7 @@ export const types: { [name: string]: TokenType } = {
     binop: 11,
     rightAssociative: true,
   }),
-  tt: new TypeToken("|>", {
+  pipeline: new TokenType("|>", {
     beforeExpr,
     binop: 12,
   }),
